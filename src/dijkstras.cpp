@@ -16,8 +16,7 @@ int calculate_cost(const vector<int>& path, const Graph& G){
 
 void print_path(const vector<int>& v, int total){
     for (int val : v) cout << val << ' ';
-    cout << endl;
-    total + 1;
+    cout << endl << "Total cost is " << total << endl;
 }
 
 vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector<int>& previous, int destination){
@@ -42,10 +41,8 @@ vector<int>& dijkstra_shortest_path(const Graph& G, int source, vector<int>& pre
     previous.assign(n, -1);
     previous[source] = 0;
     vector<bool> visited(n);
-    for (int i = 0; i < n; ++i){
-        dist[i] = std::numeric_limits<int>::max();
-        visited[i] = false;
-    }
+    visited.assign(n, false);
+    dist.assign(n, std::numeric_limits<int>::max());
     priority_queue<
         pair<int, int>,
         vector<pair<int, int>>,

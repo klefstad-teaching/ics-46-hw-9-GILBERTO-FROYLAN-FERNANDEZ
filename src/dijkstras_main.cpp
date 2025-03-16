@@ -12,8 +12,7 @@ int main(int argc, char* args[]){
     for (int i = 0; i < previous.size(); ++i){
         dijkstra_shortest_path(G, 0, previous);
         vector<int> path(extract_shortest_path({}, previous, i));
-        print_path(path, accumulate(path.begin(), path.end(), 0));
-        cout << "Total cost is " << calculate_cost(path, G) << endl;
+        print_path(path, calculate_cost(path, G));
     }
     // for (int val : value) cout << val;
     // cout << endl;
