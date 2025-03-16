@@ -23,10 +23,11 @@ vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector
     vector<int> res;
     int current = destination;
     stack<int> temp;
-    while (current != 0){
+    while (current != -1){
         temp.push(previous[current]);
         current = previous[current];
     }
+    temp.pop(); // get rid of -1
     while (!temp.empty()){
         res.push_back(temp.top());
         temp.pop();
@@ -36,19 +37,20 @@ vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector
 }
 
 vector<int>& dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
-    int n = G.size();
+    int n = G.numVertices;
     vector<int> dist{n};
-    previous.assign(n, -1);
-    previous[source] = 0;
     vector<bool> visited(n);
+    previous.assign(n, -1);
     visited.assign(n, false);
     dist.assign(n, std::numeric_limits<int>::max());
+
     priority_queue<
         pair<int, int>,
         vector<pair<int, int>>,
         greater<pair<int, int>> > pq;
     
     pq.push(pair{0, source});
+    // previous[source] = 0;
     dist[source] = 0;
     
     while (!pq.empty()){

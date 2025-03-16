@@ -47,8 +47,9 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     }
     // for (int v : bottom) cout << v;
     // cout << endl;
+    int val = top[n];
     delete[] top; delete[] bottom;
-    return top[n] <= d;
+    return val <= d;
     ///////////////////////////////////
 
     // if (abs(n - m) > d){
