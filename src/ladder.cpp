@@ -93,6 +93,8 @@ bool is_adjacent(const string& word1, const string& word2){
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list){
+    if (find(word_list.begin(), word_list.end(), end_word) == word_list.end()) return {};
+    else if (begin_word == end_word) return {};
     queue<vector<string>> ladder_queue;
     vector<string> begin_container{begin_word};
     ladder_queue.push(begin_container);
