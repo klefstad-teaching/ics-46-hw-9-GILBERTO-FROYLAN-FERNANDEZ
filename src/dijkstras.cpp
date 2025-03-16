@@ -3,7 +3,7 @@
 
 int calculate_cost(const vector<int>& path, const Graph& G){
     int total = 0;
-    for (int i = 0; i < path.size() - 1; ++i){
+    for (int i = 0; i < (int)path.size() - 1; ++i){
         for (Edge e : G[path[i]]){
             if (e.dst == path[i + 1]){
                 total += e.weight;
@@ -17,6 +17,7 @@ int calculate_cost(const vector<int>& path, const Graph& G){
 void print_path(const vector<int>& v, int total){
     for (int val : v) cout << val << ' ';
     cout << endl;
+    total + 1;
 }
 
 vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector<int>& previous, int destination){
@@ -37,10 +38,10 @@ vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector
 
 vector<int>& dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
     int n = G.size();
-    int dist[n];
+    vector<int> dist{n};
     previous.assign(n, -1);
     previous[source] = 0;
-    bool visited[n];
+    vector<bool> visited(n);
     for (int i = 0; i < n; ++i){
         dist[i] = std::numeric_limits<int>::max();
         visited[i] = false;
