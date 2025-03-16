@@ -1,5 +1,7 @@
 #include "ladder.h"
 #include <algorithm>
+// #include <cstdlib>
+
 void error(string word1, string word2, string msg){
     cerr << "error on " << word1 << " and " << word2 << " with message: " << msg << endl;
 }
@@ -12,6 +14,7 @@ void load_words(set<string> & word_list, const string& file_name){
 }
 
 void print_word_ladder(const vector<string>& ladder){
+    cout << "Word ladder found: ";
     for (string e : ladder) cout << e << " ";
     cout << endl;
 }
@@ -22,34 +25,60 @@ void verify_word_ladder(){
 }
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d){
-    // if (d < 0) return false;
-    // if (str1.size() == 0) return d - str2.size() >= 0;
-    // if (str2.size() == 0) return d - str1.size() >= 0;
+    // if (abs((int)(str1.size() - str2.size())) > d){
+    //     return false;
+    // }
+    // if (d >= 0) return true;
+    
+    if (d < 0) return false;
+    if (str1.size() == 0) return str2.size() <= d;
+    if (str2.size() == 0) return str1.size() <= d;
+    if (str1[0] == str2[0]) return edit_distance_within(str1.substr(1), str2.substr(1), d);
 
-    // if (str1.size() > str2.size()) return edit_distance_within(str1.substr(1), str2, d);
-    // else if (str2.size() > str1.size()) return edit_distance_within(str1, str2.substr(1), d);
-    // else return edit_distance_within(str1.substr(1), str2.substr(1), d);
+    if (str1.size() > str2.size())
+        return edit_distance_within(str1.substr(1), str2, d-1);
+    else if (str2.size() > str1.size())
+        return edit_distance_within(str1, str2.substr(1), d-1);
+    else
+        return edit_distance_within(str1.substr(1), str2.substr(1), d-1);
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
 
     ///////////////////////////////////
-    int m = str1.size();
-    int n = str2.size();
-    int* top = new int[n + 1];
-    int* bottom = new int[n + 1];
-    for (int i = 0; i <= n; ++i)
-        top[i] = i;
-    for (int i = 0; i < m; ++i){
-        bottom[0] = i + 1; // left side
-        for (int j = 0; j < n; ++j){
-            int sub_cost = (str1[i] == str2[j]) ? top[j] : top[j] + 1;
-            bottom[j + 1] = std::min({top[j + 1] + 1, bottom[j] + 1, sub_cost});
-        }
-        std::swap(top, bottom); // put bottom into top in O(1);
-    }
-    // for (int v : bottom) cout << v;
-    // cout << endl;
-    int val = top[n];
-    delete[] top; delete[] bottom;
-    return val <= d;
+    // int m = str1.size();
+    // int n = str2.size();
+    // if (abs(n - m) > d){
+    //     return false;
+    // }
+    // int* top = new int[n + 1];
+    // int* bottom = new int[n + 1];
+    // for (int i = 0; i <= n; ++i)
+    //     top[i] = i;
+    // for (int i = 0; i < m; ++i){
+    //     bottom[0] = i + 1; // left side
+    //     for (int j = 0; j < n; ++j){
+    //         int sub_cost = (str1[i] == str2[j]) ? top[j] : top[j] + 1;
+    //         bottom[j + 1] = std::min({top[j + 1] + 1, bottom[j] + 1, sub_cost});
+    //     }
+    //     std::swap(top, bottom); // put bottom into top in O(1);
+    // }
+    // // for (int v : bottom) cout << v;
+    // // cout << endl;
+    // int val = top[n];
+    // delete[] top; delete[] bottom;
+    // return val <= d;
     ///////////////////////////////////
 
     // if (abs(n - m) > d){
