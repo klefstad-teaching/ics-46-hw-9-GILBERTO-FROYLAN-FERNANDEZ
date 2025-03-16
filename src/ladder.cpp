@@ -25,11 +25,6 @@ void verify_word_ladder(){
 }
 
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d){
-    // if (abs((int)(str1.size() - str2.size())) > d){
-    //     return false;
-    // }
-    // if (d >= 0) return true;
-    
     if (d < 0) return false;
     if (str1.size() == 0) return str2.size() <= d;
     if (str2.size() == 0) return str1.size() <= d;
@@ -43,19 +38,6 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
         return edit_distance_within(str1.substr(1), str2.substr(1), d-1);
 
     
-    
-
-
-
-
-
-
-
-
-
-
-
-
     ///////////////////////////////////
     // int m = str1.size();
     // int n = str2.size();
@@ -106,6 +88,7 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
 }
 
 bool is_adjacent(const string& word1, const string& word2){
+    if (abs((int)word1.size() - (int)word2.size() > 1)) return false;
     return edit_distance_within(word1, word2, 1);
 }
 
