@@ -38,10 +38,14 @@ vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector
 
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
     int n = G.numVertices;
-    vector<int> dist{n, INF};
+    vector<int> dist(n);
     vector<bool> visited(n);
     previous.assign(n, -1);
     visited.assign(n, false);
+    dist.assign(n, INF);
+    // for (int i = 0; i < n; ++i){
+    //     visited[i] = false;
+    // }
 
     priority_queue<
         pair<int, int>,
